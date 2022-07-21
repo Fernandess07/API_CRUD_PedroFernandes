@@ -19,10 +19,21 @@ namespace API_CRUD.Controllers
         }
 
         // GET: Produto
-        public async Task<IActionResult> Index()
+        public IActionResult Index (string Pesquisa = "")
         {
-            return View(await _context.Produtos.ToListAsync());
+            List<Produto> produtos;
+            if(Pesquisa != "" && Pesquisa != null){
+                produtos = _context.Produtos
+                .Where(x => x.nome.Contains(Pesquisa))
+                .ToList();
+            }
+            else
+            produtos = _context.Produtos.ToList();
+            return View(produtos);
+
+            
         }
+
 
         // GET: Produto/Details/5
         public async Task<IActionResult> Details(int? id)
