@@ -1,10 +1,20 @@
 ﻿@model IEnumerable<API_CRUD.Models.Produto>
-
 @{
     ViewData["Title"] = "Tabela";
+
+    Pager pager = new Pager();
+
+    int PageNo = 0;
+    if(ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        PageNo = pager.CurrentPage;
+    }
 }
 
 <h1>Produtos</h1>
+
+
 
 <p>
     <a asp-action="Create" class="btn-outline-primary">Novo Produto</a>
@@ -15,10 +25,13 @@
         <span class="btn-group">
             <input class="form-control" type="text" name="Pesquisa"
                             placeholder="Pesquisar Nome">
-            <input class="p-1 ml-2 btn btn-sm btn-info" type="submit" value="Pesquisar"/>
+            <input class="p-1 ml-2 btn btn-sm btn-primary" type="submit" value="Pesquisar"/>
         </span>
     </form>
 </div>
+@*<vc:search-bar search-pager="@ViewBag.SearchPager"></vc:search-bar>*@
+
+
 <table class="table">
     <thead>
         <tr>
@@ -47,12 +60,16 @@
                 @Html.DisplayFor(modelItem => item.preco)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Apagar</a>
+                <div class="btn-group">
+                    <a class ="btn btn-sm btn-secondary" asp-action="Edit" asp-route-id="@item.id" >Editar</a> 
+                    <a class ="btn btn-sm btn-success" asp-action="Details" asp-route-id="@item.id">Detalhes</a>
+                    <a class ="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.id">Apagar</a>
+                </div>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<partial name="_pager" model="@pager"/>
+
 

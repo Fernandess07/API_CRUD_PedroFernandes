@@ -148,3 +148,4 @@ C:\Users\install\Documents\FCT Colgaia\11°Ano\API_CRUD\API_CRUD\obj\Debug\net5.
 C:\Users\install\Documents\FCT Colgaia\11°Ano\API_CRUD\API_CRUD\obj\Debug\net5.0\Razor\Views\Produto\Details.cshtml.g.cs
 C:\Users\install\Documents\FCT Colgaia\11°Ano\API_CRUD\API_CRUD\obj\Debug\net5.0\Razor\Views\Produto\Edit.cshtml.g.cs
 C:\Users\install\Documents\FCT Colgaia\11°Ano\API_CRUD\API_CRUD\obj\Debug\net5.0\Razor\Views\Produto\Index.cshtml.g.cs
+C:\Users\install\Documents\FCT Colgaia\11°Ano\API_CRUD\API_CRUD\obj\Debug\net5.0\Razor\Views\Shared\_Pager.cshtml.g.cs
