@@ -1,0 +1,16 @@
+﻿@model API_CRUD.Models.Pager
+
+<div class="container">
+    @if (Model.TotalPages> 0)
+    {
+        <ul class="pagination justify-content-end">
+            @for(var pge = Model.StartPage; pge<= Model.EndPage; pge++)
+            {
+            <li class="page-item @(pge == Model.CurrentPage ? "active": "" )"> 
+                <a class="page-link " asp-controller="Produto" asp-action="Index" asp-route-pg="@pge"> @pge </a>
+            </li>
+            }
+        </ul>
+    }
+</div>
+
