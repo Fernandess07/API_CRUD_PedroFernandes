@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using API_CRUD.Models;
-using API_CRUD.Views.Shared.Components.SearchBar;
 
 namespace API_CRUD.Controllers
 {
@@ -20,10 +19,9 @@ namespace API_CRUD.Controllers
         }
 
         // GET: Produto
-        public IActionResult Index (string Pesquisa = "",int pg=1)
+        public IActionResult Index (string Pesquisa = "")
         {
             List<Produto> produtos;
-
             if(Pesquisa != "" && Pesquisa != null){
                 produtos = _context.Produtos
                 .Where(x => x.nome.Contains(Pesquisa))
@@ -31,24 +29,9 @@ namespace API_CRUD.Controllers
             }
             else
             produtos = _context.Produtos.ToList();
+            return View(produtos);
 
-            SPager SearchPager = new SPager() { Action = "Index", Controller = "Produto", SearchText = Pesquisa };
-            ViewBag.SearchPager = SearchPager;
-
-            const int pageSize = 10;
-            if (pg < 1)
-                pg = 1;
-
-            int recsCount = produtos.Count;
-            var pager = new Pager(recsCount, pg, pageSize);
-            int recskip = (pg - 1) * pageSize;
-            var data = produtos.Skip(recskip).Take(pager.PageSize).ToList();
-            this.ViewBag.Pager = pager;
-
-            //return View(produtos);
-            return View(data);
-
-
+            
         }
 
 
