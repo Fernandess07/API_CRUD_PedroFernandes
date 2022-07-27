@@ -19,12 +19,35 @@ namespace API_CRUD.Controllers
             _context = context;
         }
 
-        // GET: Produto
-        public IActionResult Index (string Pesquisa = "",int pg=1)
+        private List<SelectListItem> GetPageSizes(int selectedPageSize = 10)
+        {
+            var pageSizes = new List<SelectListItem>();
+            if (selectedPageSize == 5)
+                pageSizes.Add(new SelectListItem("5", "5", true));
+            else
+                pageSizes.Add(new SelectListItem("5", "5"));
+            for (int lp = 10; lp <= 100; lp += 10)
+            {
+                if (lp == selectedPageSize)
+                { pageSizes.Add(new SelectListItem(lp.ToString(), lp.ToString(), true)); }
+                else 
+                    pageSizes.Add(new SelectListItem(lp.ToString(), lp.ToString()));
+
+            }
+            return pageSizes;
+        }
+
+
+
+
+
+
+            public IActionResult Index (string Pesquisa = "",int pg=1, int pageSize=5)
         {
             List<Produto> produtos;
+            this.ViewBag.PagesSize = GetPageSizes(pageSize);
 
-            if(Pesquisa != "" && Pesquisa != null){
+            if (Pesquisa != "" && Pesquisa != null){
                 produtos = _context.Produtos
                 .Where(x => x.nome.Contains(Pesquisa))
                 .ToList();
@@ -35,7 +58,7 @@ namespace API_CRUD.Controllers
             SPager SearchPager = new SPager() { Action = "Index", Controller = "Produto", SearchText = Pesquisa };
             ViewBag.SearchPager = SearchPager;
 
-            const int pageSize = 10;
+            //const int pageSize = 10;
             if (pg < 1)
                 pg = 1;
 
@@ -44,7 +67,6 @@ namespace API_CRUD.Controllers
             int recskip = (pg - 1) * pageSize;
             var data = produtos.Skip(recskip).Take(pager.PageSize).ToList();
             this.ViewBag.Pager = pager;
-
             //return View(produtos);
             return View(data);
 
